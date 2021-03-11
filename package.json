@@ -1,11 +1,11 @@
 {
   "name": "@westh/serial-commander",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Send commands via a serial port, e.g. AT commands to a modem",
   "exports": {
     ".": {
-      "import": "./dist/mjs/index.js",
-      "require": "./dist/cjs/index.js"
+      "import": "./lib/mjs/index.js",
+      "require": "./lib/cjs/index.js"
     }
   },
   "repository": {
