@@ -1,0 +1,65 @@
+{
+  "name": "@westh/serial-commander",
+  "version": "1.0.0",
+  "description": "Send commands via a serial port, e.g. AT commands to a modem",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/westh/serial-commander.git"
+  },
+  "keywords": [
+    "serial",
+    "uart",
+    "at",
+    "command",
+    "at command",
+    "at-commands",
+    "👋",
+    "serial not cereal"
+  ],
+  "author": "westh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/westh/serial-commander/issues"
+  },
+  "homepage": "https://github.com/westh/serial-commander#readme",
+  "scripts": {
+    "build": "babel index.js -d lib/cjs && cp index.js lib/mjs",
+    "test": "yarn build && node test.mjs && node test.cjs",
+    "lint": "eslint --fix .",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn lint"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "@serialport/parser-readline": "^9.0.7",
+    "serialport": "^9.0.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "babel-plugin-add-module-exports": "^1.0.4",
+    "eslint": "^7.15.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "husky": "^4.3.5",
+    "lint-staged": "^10.5.3"
+  }
+}
