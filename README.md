@@ -25,11 +25,12 @@ const serialCommander = new SerialCommander({
 })
 
 async function main () {
-  const response = await serialCommander.send('AT', {
-    expectedResponses = ['OK'], // defaults to ['OK']
-    timeout = 500,  // defaults to 1000
-    delay = 100 // defaults to defaultDelay set in the constructor
-  })
+  const options = {
+    expectedResponses: ['OK', 'YEAH'], // defaults to ['OK']
+    timeout: 500,  // defaults to 1000
+    delay: 100 // defaults to defaultDelay set in the constructor
+  }
+  const response = await serialCommander.send('AT', options)
   console.log(response)
   serialCommander.close()
 }
