@@ -16,7 +16,7 @@ npm install @westh/serial-commander
 const SerialCommander = require('@westh/serial-commander') // or use import ... from ...
 
 const serialCommander = new SerialCommander({
-  port: '/dev/ttySOMETHINGCOOL',
+  port: '/dev/ttySOMETHINGCOOL', // defaults to /dev/modem
   baudrate: 9600, // defaults to 115200
   delimiter = '\r\n', // defaults to '\n'
   disableLog = false, // defaults to false
@@ -25,7 +25,12 @@ const serialCommander = new SerialCommander({
 })
 
 async function main () {
-  await serialCommander.send({ command: 'AT' })
+  const response = await serialCommander.send('AT', {
+    expectedResponses = ['OK'], // defaults to ['OK']
+    timeout = 500,  // defaults to 1000
+    delay = 100 // defaults to defaultDelay set in the constructor
+  })
+  console.log(response)
   serialCommander.close()
 }
 
@@ -35,12 +40,19 @@ main()
 Something like this will appear in the terminal if you are connected to a modem:
 
 ```
-[2021-03-11T10:21:51.445Z] >> AT
-[2021-03-11T10:21:51.452Z]
-[2021-03-11T10:21:51.453Z] OK
+[2021-03-14T12:05:25.555Z] >> AT
+[2021-03-14T12:05:25.561Z] AT
+[2021-03-14T12:05:25.562Z] << OK
+{
+  command: 'AT',
+  startTime: 2021-03-14T12:05:25.555Z,
+  endTime: 2021-03-14T12:05:25.562Z,
+  executionTime: 7,
+  response: 'AT\r\rOK\r'
+}
 ```
 
-The message starting with `>>` is what your machine has sent to the serial port, everything else is what is received on the connection.
+The message starting with `>>` is what your machine has sent to the serial port, everything else is what is received on the connection, and the message starting with `<<` is the line which contains the expected response.
 
 ## Testing
 

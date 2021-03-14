@@ -8,7 +8,8 @@ const serialCommander = new SerialCommander({
 })
 
 async function main () {
-  await serialCommander.send({ command: 'AT' })
+  const response = await serialCommander.send('AT')
+  console.log(response)
   serialCommander.close()
 }
 
