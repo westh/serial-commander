@@ -71,7 +71,7 @@ class SerialCommander {
   }
 
   close () {
-    this.port.close()
+    if (this.port.isOpen) this.port.close()
   }
 }
 
