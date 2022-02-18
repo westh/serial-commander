@@ -68,3 +68,5 @@ The tests sends `AT` to the `TEST_PORT`, so if that port is a cellular modem of 
 ## License
 
 MIT
+
+<a href="https://www.buymeacoffee.com/westh" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-1.svg" alt="Buy Me A Coffee" style="height: 40px;"></a>
