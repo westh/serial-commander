@@ -5,7 +5,8 @@ class SerialCommander {
   constructor ({
     port = '/dev/modem',
     baudrate = 115200,
-    delimiter = '\n',
+    readDelimiter = '\n',
+    writeDelimiter = '\r\n',
     disableLog = false,
     defaultDelay = 100,
     log = string => console.log(`[${new Date().toISOString()}] ${string}`)
@@ -15,9 +16,10 @@ class SerialCommander {
     this.defaultDelay = defaultDelay
     this.fallbackSerialDataHandler = line => log(`{answer given outside command scope} ${line}`)
     this.serialDataHandler = this.fallbackSerialDataHandler
+    this.writeDelimiter = writeDelimiter
 
     this.port = new SerialPort(port, { baudRate: baudrate })
-    this.parser = new Readline({ delimiter })
+    this.parser = new Readline({ readDelimiter })
     this.port.pipe(this.parser)
     this.parser.on('data', line => this.serialDataHandler(line))
   }
@@ -38,7 +40,7 @@ class SerialCommander {
         reject(new Error('Request timed out before a satisfactory answer was given'))
       }, timeout)
 
-      const escapedCommand = `${command}\r\n`
+      const escapedCommand = `${command}${this.writeDelimiter}`
       this.port.write(escapedCommand)
       if (this.isLogEnabled) this.log(`>> ${command}`)
 
