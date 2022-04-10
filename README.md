@@ -18,7 +18,8 @@ const SerialCommander = require('@westh/serial-commander') // or use import ... 
 const serialCommander = new SerialCommander({
   port: '/dev/ttySOMETHINGCOOL', // defaults to /dev/modem
   baudrate: 9600, // defaults to 115200
-  delimiter: '\r\n', // defaults to '\n'
+  readDelimiter = '\r', // defaults to '/n'
+  writeDelimiter = '\n', // defaults to '/r/n'
   disableLog: false, // defaults to false
   defaultDelay: 50, // delay [ms] before the command is issued defaults to 100
   log: string => console.log(`[${new Date().toISOString()}] ${string}`) // default logging function
